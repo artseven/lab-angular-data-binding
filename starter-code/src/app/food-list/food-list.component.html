@@ -1,3 +1,16 @@
+<div class="foods">
+  <div class="search-box">
+    <input id="food-search" type="text" [(ngModel)]="pattern">
+
 <p>
   food-list works!
 </p>
+
+<li class="single-food" *ngFor="let food of foods | foodSearch: 'name' :pattern;">
+  <!-- Can do any way, first one is dynamic          | -->
+  <!-- <img src="{{food.image}}"> -->
+  <h3 class="food-name"></h3>
+  {{ food.name }}
+  <p class="food-calories">Calories: {{ food.calories }}</p>
+  <img style="width:80px; height: auto" [src]="food.image">
+</li>
