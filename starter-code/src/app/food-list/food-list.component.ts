@@ -8,11 +8,16 @@ import foodsList from '../foods';
 })
 export class FoodListComponent implements OnInit {
   foods              : Object[];
+  myList             : {name: string, calories: number, quantity: number, image: string } [];
   pattern            : string;
   isEditing          : boolean = false;
   newFoodName        : string = "Example Name";
   newFoodCalories    : number = 250;
   newFoodImage       : string = "";
+  quantity           : number;
+  totalCalories      : number = 0;
+
+
   constructor() { }
 
   ngOnInit() {
@@ -38,5 +43,19 @@ export class FoodListComponent implements OnInit {
   this.newFoodCalories = null;
   this.newFoodImage = "";
 }
+
+  addToMyList (food, quantityInput) {
+    const existingFood = this.myList.find(item => item.name === food.name)
+    const quantity = Number(quantityInput.value)
+
+    if(existingFood) {
+      existingFood.quantity += quantity;
+    } else {
+      food.quantity += quantity;
+      this.myList.push(food);
+    }
+    this.totalCalories += (food.calories * quantity);
+    this.quantity = 1;
+  }
 
 }

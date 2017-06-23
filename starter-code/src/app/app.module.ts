@@ -7,13 +7,15 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FoodListComponent } from './food-list/food-list.component';
 import { BuiltInPipesComponent } from './built-in-pipes/built-in-pipes.component';
-import { FoodSearchPipe} from './food-search.pipe'
+import { FoodSearchPipe} from './food-search.pipe';
+import { MyFoodsComponent } from './my-foods/my-foods.component'
 @NgModule({
   declarations: [
     AppComponent,
     FoodListComponent,
     BuiltInPipesComponent,
-    FoodSearchPipe
+    FoodSearchPipe,
+    MyFoodsComponent
   ],
   imports: [
     BrowserModule,
