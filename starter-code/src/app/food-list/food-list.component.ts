@@ -8,7 +8,7 @@ import foodsList from '../foods';
 })
 export class FoodListComponent implements OnInit {
   foods              : Object[];
-  myList             : {name: string, calories: number, quantity: number, image: string } [];
+  myList             : {name: string, calories: number, quantity: number, image: string } []=[];
   pattern            : string;
   isEditing          : boolean = false;
   newFoodName        : string = "Example Name";
@@ -44,14 +44,14 @@ export class FoodListComponent implements OnInit {
   this.newFoodImage = "";
 }
 
-  addToMyList (food, quantityInput) {
+addToMyList(food, quantityInput){
     const existingFood = this.myList.find(item => item.name === food.name)
     const quantity = Number(quantityInput.value)
 
-    if(existingFood) {
+    if (existingFood){
       existingFood.quantity += quantity;
     } else {
-      food.quantity += quantity;
+      food.quantity = quantity;
       this.myList.push(food);
     }
     this.totalCalories += (food.calories * quantity);

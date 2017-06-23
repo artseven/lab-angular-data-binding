@@ -1,31 +1,63 @@
 <div class="foods">
   <div class="search-box">
+    <label for="food-search">Search</label>
     <input id="food-search" type="text" [(ngModel)]="pattern">
   </div>
 
-<div class="new-food">
-  <button (click)="enableUserToAddFood()" class="new-food-button">Add New Food </button>
-  <br>
-  <div *ngIf="isEditing">
-    <div>
-      <label for="new-food-name">Name</label>
-      <input type="text" [(ngModel)]="newFoodName">
+  <div class="new-food">
+    <button (click)="enableUserToAddFood()" class="new-food-button">Add New Food</button>
+    <br>
+    <div *ngIf="isEditing">
+      <div>
+        <label for="new-food-name">Name</label>
+        <input type="text" [(ngModel)]="newFoodName">
+      </div>
+      <div>
+        <label for="new-food-calories">Calories</label>
+        <input type="text" [(ngModel)]="newFoodCalories">
+      </div>
+      <div>
+        <label for="new-food-name">Image</label>
+        <input type="text" [(ngModel)]="newFoodImage">
+      </div>
+      <button (click)="newFood()">Add Food</button>
     </div>
-    <div>
-      <label for="new-food-calories">Calories</label>
-      <input type="text" [(ngModel)]="newFoodCalories">
-    </div>
-    <div>
-      <label for="new-food-image">Image</label>
-      <input type="text" [(ngModel)]="newFoodImage">
-    </div>
-    <button (click)="newFood()"> Add food </button>
   </div>
-<li class="single-food" *ngFor="let food of foods | foodSearch: 'name' :pattern;">
-  <!-- Can do any way, first one is dynamic          | -->
-  <!-- <img src="{{food.image}}"> -->
-  <h3 class="food-name"></h3>
-  {{ food.name }}
-  <p class="food-calories">Calories: {{ food.calories }}</p>
-  <img style="width:80px; height: auto" [src]="food.image">
-</li>
+
+  <ul class="food-list">
+    <li class="single-food" *ngIf="isEditing">
+      <h3 class="food-name">
+        {{ newFoodName }}
+        <img [src]="newFoodImage">
+        <small class="food-calories">{{ newFoodCalories }}</small>
+      </h3>
+    </li>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <li class="single-food" *ngFor="let food of foods | foodSearch:'name':pattern;">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <!--   could do this either way below evaluates once, above listens for changes-->
+      <!-- <img src="{{food.image}}"> -->
+      <h3 class="food-name">
+        {{ food.name }}
+      </h3>
+      <img style="width: 50px; height: auto"[src]="food.image">
+      <small class="food-calories">Calories: {{ food.calories }}</small>
+
+      <button (click)="addToMyList(food, quantity)">+</button>
+      <input type="text" #quantity value="1">
+    </li>
+  </ul>
+
+</div>
+
+<div class="my-food-list">
+  <h2>Today's Foods <small>{{ totalCalories }} cal</small></h2>
+  <ul>
+    <li *ngFor="let food of myList">
+      <span>{{ food.name }}</span>
+      <span>{{ food.calories }}</span>
+      <span *ngIf="food.quantity > 1">x{{ food.quantity }}</span>
+    </li>
+  </ul>
+</div>
