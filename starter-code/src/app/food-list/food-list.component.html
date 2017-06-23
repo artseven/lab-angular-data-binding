@@ -1,11 +1,26 @@
 <div class="foods">
   <div class="search-box">
     <input id="food-search" type="text" [(ngModel)]="pattern">
+  </div>
 
-<p>
-  food-list works!
-</p>
-
+<div class="new-food">
+  <button (click)="enableUserToAddFood()" class="new-food-button">Add New Food </button>
+  <br>
+  <div *ngIf="isEditing">
+    <div>
+      <label for="new-food-name">Name</label>
+      <input type="text" [(ngModel)]="newFoodName">
+    </div>
+    <div>
+      <label for="new-food-calories">Calories</label>
+      <input type="text" [(ngModel)]="newFoodCalories">
+    </div>
+    <div>
+      <label for="new-food-image">Image</label>
+      <input type="text" [(ngModel)]="newFoodImage">
+    </div>
+    <button (click)="newFood()"> Add food </button>
+  </div>
 <li class="single-food" *ngFor="let food of foods | foodSearch: 'name' :pattern;">
   <!-- Can do any way, first one is dynamic          | -->
   <!-- <img src="{{food.image}}"> -->
